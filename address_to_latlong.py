@@ -5,6 +5,9 @@
 from openpyxl import load_workbook
 from geopy.geocoders import Nominatim
 
+# create Nominatim object
+geolocator = Nominatim()
+
 # load workbook
 wb = load_workbook('test.xlsx')
 
@@ -16,10 +19,37 @@ ws = wb[first_sheet]
 
 for i in range(4,849):
 
-    # j
+    # store address
     address = ws['B' + str(i)]
 
+    # display address
     print(address.value)
+
+    # create location
+    location = geolocator.geocode(address.value, timeout=None)
+
+    try:
+
+        # get latitude
+        lat = location.latitude
+
+        # get longitude
+        lon = location.longitude
+
+        print("(" + str(lat) + "," + str(lon) + ")")
+
+        # write latitude value to file
+        ws['E' + str(i)] = lat
+
+        # write longitude value to file
+        ws['F' + str(i)] = lon
+
+    except:
+        print("Can't get coordinates, skipping...")
+        
+
+# save file
+wb.save('clean_initial_data.xlxs')
 
 
 
