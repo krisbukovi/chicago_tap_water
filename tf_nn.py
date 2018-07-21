@@ -1,6 +1,6 @@
 # filename: tf_nn.py
 # author: kris bukovi
-# last modified: July 12, 2018
+# last modified: July 21, 2018
 
 import math
 import numpy as np

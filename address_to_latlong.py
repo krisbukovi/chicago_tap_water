@@ -6,13 +6,20 @@ from openpyxl import load_workbook
 from geopy.geocoders import Nominatim
 
 # load workbook
-wb = load_workbook(filename = 'wq_study_results.xlsx')
+wb = load_workbook('test.xlsx')
 
 # get first sheet name
-first_sheet = wb.get_sheet_names()[0]
+first_sheet = wb.sheetnames[0]
 
 # load worksheet
-ws = wb.get_sheet_by_name(first_sheet)
+ws = wb[first_sheet]
+
+for i in range(4,849):
+
+    # j
+    address = ws['B' + str(i)]
+
+    print(address.value)
 
 
 
