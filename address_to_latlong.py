@@ -44,12 +44,14 @@ for i in range(4,849):
         # write longitude value to file
         ws['F' + str(i)] = lon
 
+        # save file
+        wb.save('test.xlsx')
+
     except:
         print("Can't get coordinates, skipping...")
         
 
-# save file
-wb.save('clean_initial_data.xlxs')
+
 
 
 
