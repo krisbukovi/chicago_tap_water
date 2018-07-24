@@ -8,8 +8,34 @@ import h5py
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.python.framework import ops
+from openpyxl import load_workbook
 
 def load_dataset():
+
+    lat = []
+    lon = []
+    
+    # load workbook
+    wb = load_workbook('test.xlsx')
+
+    # get first sheet name
+    first_sheet = wb.sheetnames[0]
+
+    # load worksheet
+    ws = wb[first_sheet]
+
+    for i in range(4, 849):
+
+        # store latitude
+        lat.append(ws['E' + str(i)])
+
+        # store longitude
+        lon.append(ws['F' + str(i)])
+
+    # display locations on chart
+
+
+
 
 def random_mini_batches(X, Y, mini_batch_size = 64, seed = 0):
 
