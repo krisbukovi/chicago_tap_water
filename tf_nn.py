@@ -5,6 +5,7 @@
 
 from openpyxl import load_workbook
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def load_dataset():
 
@@ -24,23 +25,31 @@ def load_dataset():
 
     for i in range(4, 849):
 
-        # store latitude
-        lat.append(ws['E' + str(i)].value)
+        try:
 
-        # store longitude
-        lon.append(ws['F' + str(i)].value)
+            # store latitude
+            lat.append(float(ws['E' + str(i)].value))
 
-        # store average of draws
-        ave.append(ws['L' + str(i)].value)
+            # store longitude
+            lon.append(float(ws['F' + str(i)].value))
 
-        # store over limit value
-        limit.append(ws['M' + str(i)].value)
+            # store average of draws
+            ave.append(ws['L' + str(i)].value)
 
-    # display locations on chart
-    df = pd.DataFrame({'latitude': lat, 'longitude': lon, 'average': ave, 'over limit?': limit})
-    print(df)
+            # store over limit value
+            limit.append(ws['M' + str(i)].value)
 
+        except Exception as e:
+            print(e)
 
+    # display dataframe 
+    df = pd.DataFrame({'latitude': lat, 'longitude': lon, 'average': ave, 'limit': limit})
+    # print(df)
+
+    # display scatterplot 
+    ax = df.plot.scatter(x='latitude', y='longitude', c='limit')
+    #plt.scatter(df.latitude, df.longitude, c=df.limit)
+    plt.show()
 
 
 #def random_mini_batches(X, Y, mini_batch_size = 64, seed = 0):

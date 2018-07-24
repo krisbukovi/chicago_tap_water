@@ -47,8 +47,9 @@ for i in range(4,849):
         # save file
         wb.save('test.xlsx')
 
-    except:
+    except Exception as e:
         print("Can't get coordinates, skipping...")
+        print(e)
         
 
 

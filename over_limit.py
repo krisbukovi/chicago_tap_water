@@ -61,9 +61,9 @@ for i in range(4,849):
 
         # write yes/no for over limit column to file
         if average > 5.0:
-            ws['M' + str(i)] = "Yes"
+            ws['M' + str(i)] = 1
         else:
-            ws['M' + str(i)] = "No"
+            ws['M' + str(i)] = 0
 
         # save file
         wb.save('test.xlsx')
