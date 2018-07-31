@@ -1,6 +1,6 @@
 # filename: tf_nn.py
 # author: kris bukovi
-# last modified: July 24, 2018
+# last modified: July 25, 2018
 
 
 from openpyxl import load_workbook
@@ -13,6 +13,11 @@ def load_dataset():
     lon = []
     ave = []
     limit = []
+    date = []
+    first_draw = []
+    fourth_draw = []
+    sixth_draw = []
+    five_min = []
     
     # load workbook
     wb = load_workbook('test.xlsx')
@@ -39,6 +44,21 @@ def load_dataset():
             # store over limit value
             limit.append(ws['M' + str(i)].value)
 
+            # store date of sample
+            date.append(ws['A' + str(i)].value)
+
+            # store first draw
+            first_draw.append(ws['G' + str(i)].value)
+
+            # store fourth draw
+            fourth_draw.append(ws['H' + str(i)].value)
+
+            # store sixth draw
+            sixth_draw.append(ws['I' + str(i)].value)
+
+            # store 5 min flush
+            five_min.append(ws['J' + str(i)].value)
+
         except Exception as e:
             print(e)
 
@@ -52,11 +72,45 @@ def load_dataset():
     plt.show()
 
 
-#def random_mini_batches(X, Y, mini_batch_size = 64, seed = 0):
+# create random minibatches from (X, Y)
+def random_mini_batches(X, Y, mini_batch_size = 64, seed = 0):
 
-#def convert_to_one_hot(Y, C):
+    # number of training examples
+    m = X.shape[1]
 
-#def predict(X, parameters):
+    mini_batches = []
+    np.random.seed(seed)
+
+    # Step 1: Shuffle (X, Y)
+    permutation = list(np.random.permutation)
+    shuffled_X = X[:, permutation]
+    shuffled_Y = Y[:, permutation].reshape((Y.shape[0],m))
+
+    # Step 2: Partition (shuffled_X, shuffled_Y) minus the end case
+    # number of mini batches of size mini_batch_size in your partitioning
+    num_complete_minibatches = math.floor(m/mini_batch_size)
+
+    for k in range(0, num_complete_minibatches):
+        mini_batch_X = shuffled_X[:, k * mini_batch_size : k * mini_batch_size + mini_batch_size]
+        mini_batch_Y = shuffled_Y[:, k * mini_batch_size : k * mini_batch_size + mini_batch_size]
+        mini_batch = (mini_batch_X, mini_batch_Y)
+        mini_batches.append(mini_batch)
+
+    return mini_batches
+
+def convert_to_one_hot(Y, C):
+    Y = np.eye(C)[Y.reshape(-1)].T
+    return Y
+
+def predict(X, parameters):
+    W1 = tf.convert_to_tensor(parameters["W1"])
+    b1 = tf.convert_to_tensor(parameters["b1"])
+    W2 = tf.convert_to_tensor(parameters["W2"])
+    b2 = tf.convert_to_tensor(parameters["b2"])
+    W3 = tf.convert_to_tensor(parameters["W3"])
+    b3 = tf.convert_to_tensor(parameters["b3"])
+
+    params = {"W1": W1, "b1"}
 
 #def forward_propagation_for_predict(X, parameters):
 
