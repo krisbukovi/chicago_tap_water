@@ -173,6 +173,17 @@ def one_hot_matrix(labels, C):
 
 def ones(shape):
 
+    # create "ones" tensor using tf.ones
+    ones = tf.ones(shape)
+
+    # create a session
+    sess = tf.Session()
+
+    # run the session
+    
+
+
+
 #def create_placeholders(n_x, n_y):
 
 #def initialize_parameters():
