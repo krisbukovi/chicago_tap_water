@@ -152,6 +152,7 @@ def forward_propagation_for_predict(X, parameters):
     return Z3
 
 def one_hot_matrix(labels, C):
+    
 
 #def ones(shape):
 
