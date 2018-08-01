@@ -153,8 +153,25 @@ def forward_propagation_for_predict(X, parameters):
 
 def one_hot_matrix(labels, C):
     
+    # create a tf.constant equal to C (depth)
+    C = tf.constant(C, name = "C")
 
-#def ones(shape):
+    # use tf.one_hot
+    one_hot_matrix = tf.one_hot(labels, C, axis = 0)
+
+    # create the session
+    sess = tf.Session()
+
+    # run the session
+    one_hot = sess.run(one_hot_matrix)
+
+    # close the session
+    sess.close()
+
+    return one_hot
+    
+
+def ones(shape):
 
 #def create_placeholders(n_x, n_y):
 
